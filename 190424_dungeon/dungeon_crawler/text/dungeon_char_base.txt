@@ -1,0 +1,160 @@
+@startuml
+abstract class Character {
++ int getId()
++ string getName()
++ int[numStats] getStats()
++ CharacterFeature getCharacterFeature()
+--
++ {abstract} move() = 0
++ skill(int _skillNumber);
+--
+# int id
+# string name
+# Meditator meditator
+--
++ Pos pos
++ Status status
+# CompoundStats* compoundStats
+# CharacterFeature feature
+# (Skill*)[] skillSet
+}
+Character "1" o-- "1" CompoundStats
+Character "1" o-- "1" CharacterFeature
+Character "1" o-- "1" Status
+Character "1" o-- "1" Pos
+
+class Pos <<struct>> {
+int x
+int y
+}
+
+
+class CompoundStats <<Compound>> {
++ Stats getTotalStats()
+--
++ (CompoundStats*)[] compoundStats
++ Stats[] stats
+# Stats totalStats
+}
+note "init size(*this) = \n 3 (base+buff+item)" as NoteCompoundStats
+CompoundStats...NoteCompoundStats
+CompoundStats "1" o-- "n" CompoundStats
+CompoundStats "1" o-- "n" Stats
+
+class Stats <<Struct>> {
++ int[numStats] spec
++ float[numStats] specRaio
+}
+Stats --> StatsSpec
+
+
+enum StatsSpec {
+maxHp = 0
+maxResource
+attackDamage
+spellPower
+armor
+magicResist
+hpRegen
+resourceRegen 
+}
+
+
+
+class Status {
++ damage(int_damage)
+--
++ int hp
++ int resource
++ CompoundBuff* compoundBuff
++ int[numType] buffTypeMask
++ int[numCC] crowdControlMask
++ int isVisible
+}
+note "CC:\nsubscript: CC type\nvalue: durations" as ccNote
+Status ... ccNote
+Status --> isVisible
+Status --> BuffType
+Status --> Crowdcontrol
+
+enum isVisible {
+visible = 0 (00)
+clocked = 1 (01)
+invisible = 2 (10)
+}
+
+enum Crowdcontrol {
+rooted = 0;
+stunned
+silenced
+invincible
+}
+
+class CompoundBuff <<Compound>> {
++ Stats getTotalStats()
++ Stats getTotalStatsRatio()
++ int getMinDuration()
+--
++ (CompoundBuff*)[] compoundbuffs
++ map<int id, <Buff*, duration>> buffs
+# Stats totalStats
+# int minDuration
+}
+note "init size(*this)=\n size(buffType)" as NoteCompoundBuff
+CompoundBuff --> StatsSpec
+CompoundBuff "n" --o "1" Status
+CompoundBuff ... NoteCompoundBuff
+CompoundBuff "n" --o "1" CompoundBuff
+CompoundBuff "1" o-- "n" Buff
+
+
+class Buff {
++ int getId()
++ string getName()
++ BuffType getType()
++ int[numStats] getSpec()
+--
+# int id
+# string name
+--
+# BuffType type
+# Stats stats
+}
+Buff "1" o-- "1" Stats
+Buff --> StatsSpec
+Buff --> BuffType 
+
+enum BuffType <<enum class>> {
+inherited
+item
+bless
+poison
+curse
+}
+
+
+class CharacterFeature <<Struct>> {
++ int level
++ int race
++ ClassType class
++ bool[numGearType]\ncanEquipMask
+}
+CharacterFeature --> RaceType
+CharacterFeature --> ClassType
+
+enum RaceType {
+undead = 0;
+beast
+goblin
+}
+
+
+enum ClassType <<enum class>> {
+warrior
+wizard
+}
+
+
+
+@enduml
+
