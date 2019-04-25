@@ -1,48 +1,16 @@
-﻿// ConsoleApplication1.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
+﻿// textEditor.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 //
 
 #include "pch.h"
 #include <iostream>
-#include <map>
-#include <string>
-#include <stack>
+#include "Application.h"
 
-using namespace std;
-
-int fibonacci(int n, map<int, int>* dic) {
-	enum { dv = 10009 };
-	int newNumber;
-	auto it = dic->find(n);
-	if (it != dic->end()) { newNumber = it->second; }
-	else {
-		if (n == 1 || n == 2) { newNumber = 1; }
-		else {
-			newNumber = fibonacci(n - 1, dic) % dv + fibonacci(n - 2, dic) % dv;
-		}
-		dic->insert({n, newNumber});
-	}
-	return newNumber % dv;
-}
-
-string binaryRecursive(int n) {
-	string _str;
-	if (n == 0 || n == 1) { return to_string(n); }
-	else {
-		_str = binaryRecursive((n >> 1)) + to_string(n & 1);
-	}
-	return _str;
-}
 
 int main()
 {
-	int a;
-	map<int, int> dic;
-	stack<bool> _stack;
-	std::cin >> a;
-	std::cout << binaryRecursive(a);
-	
-
-	//std::cout << fibonacci(a, &dic);
+	Editor edit;
+	auto some = edit.getText();
+    std::cout << "Hello World!\n"; 
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
