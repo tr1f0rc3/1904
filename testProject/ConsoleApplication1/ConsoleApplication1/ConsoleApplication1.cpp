@@ -8,8 +8,10 @@ using namespace std;
 
 int fibonacci(int n) {
 	int newNumber;
-	if (n == 1 || n == 2) { newNumber = 1 };
-	newNumber = fibonacci(n - 1) + fibonacci(n - 2);
+	if (n == 1 || n == 2) { newNumber = 1; }
+	else {
+		newNumber = fibonacci(n - 1) + fibonacci(n - 2);
+	}
 	return newNumber;
 }
 
@@ -17,7 +19,7 @@ int main()
 {
 	int a;
 	std::cin >> a;
-    std::cout << fibonacci(a); 
+	std::cout << fibonacci(a);
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
