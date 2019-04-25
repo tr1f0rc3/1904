@@ -3,23 +3,31 @@
 
 #include "pch.h"
 #include <iostream>
+#include <map>
 
 using namespace std;
 
-int fibonacci(int n) {
+int fibonacci(int n, map<int, int>* dic) {
+	enum { dv = 10009 };
 	int newNumber;
-	if (n == 1 || n == 2) { newNumber = 1; }
+	auto it = dic->find(n);
+	if (it != dic->end()) { newNumber = it->second; }
 	else {
-		newNumber = fibonacci(n - 1) + fibonacci(n - 2);
+		if (n == 1 || n == 2) { newNumber = 1; }
+		else {
+			newNumber = fibonacci(n - 1, dic) % dv + fibonacci(n - 2, dic) % dv;
+		}
+		dic->insert({n, newNumber});
 	}
-	return newNumber;
+	return newNumber % dv;
 }
 
 int main()
 {
 	int a;
+	map<int, int> dic;
 	std::cin >> a;
-	std::cout << fibonacci(a);
+	std::cout << fibonacci(a, &dic);
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
