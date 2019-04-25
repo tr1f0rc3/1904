@@ -3,14 +3,14 @@
 
 //
 Command::Command(std::string* _appText, Editor* _edit, 
-	int _pos, int _length)
+	int _pos, int _length, const std::string& _text)
  : appText(_appText), editor(_edit),
-	pos(_pos), length(_length) {}
+	pos(_pos), length(_length), text(_text) {}
 
 bool Command::saveBackUp() {
 	if (editor == nullptr) { return false; }
 	else {
-		text = editor->text;
+		backUp = editor->text;
 		return true;
 	}
 }
@@ -18,57 +18,38 @@ bool Command::saveBackUp() {
 bool Command::undo() {
 	if (editor == nullptr) { return false; }
 	else {
-		editor->text = text;
+		editor->text = backUp;
 		return true;
 	}
 }
 
+//MacroCommand::MacroCommand(std::string* _appText, Editor* _edit)
+//	: Command(_appText, _edit, 0, 0) {}
 
-//
-CopyCommand::CopyCommand(std::string* _appText, Editor* _edit,
-	int _pos, int _length)
-	: Command(_appText, _edit, _pos, _length) {}
+MacroCommand::~MacroCommand() {
+	while (cmdStack.empty()) {
+		Command* temp = pop();
+		if (temp != nullptr) {
+			delete temp;
+			temp = nullptr;
+		}
+	}
+}
 
-bool CopyCommand::execute() {
-	std::string temp = editor->getText(pos, length);
-	if (temp == "") return false;
+
+
+bool MacroCommand::push(Command* _cmd) {
+	if (_cmd == nullptr) { return false; }
 	else {
-		*appText = temp;
+		cmdStack.push(_cmd);
 		return true;
 	}
 }
-
-//
-CutCommand::CutCommand(std::string* _appText, Editor* _edit,
-	int _pos, int _length)
-	: Command(_appText, _edit, _pos, _length) {}
-
-
-bool CutCommand::execute() {
-	*appText = editor->getText(pos, length);
-	if (*appText == "") return false;
-	else return editor->deleteText(pos, length);
+Command* MacroCommand::pop() {
+	if (cmdStack.empty()) { return nullptr; }
+	else {
+		auto temp = cmdStack.top();
+		cmdStack.pop();
+		return temp;
+	}
 }
-
-ReplaceCommand::ReplaceCommand(std::string* _appText, Editor* _edit,
-	int _pos, int _length)
-	: Command(_appText, _edit, _pos, _length) {}
-
-
-bool ReplaceCommand::execute() {
-	if (text == "") return false;
-	else return editor->replaceText(pos, length, text);
-}
-
-PasteCommand::PasteCommand(std::string* _appText, Editor* _edit,
-	int _pos, int _length)
-	: Command(_appText, _edit, _pos, _length) {}
-
-
-bool PasteCommand::execute() {
-	if (text == "") return false;
-	else return editor->insertText(pos, text);
-}
-
-
-

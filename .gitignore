@@ -18,3 +18,7 @@ testProject/ConsoleApplication1/textEditor/Debug/vc141.idb
 *.obj
 *.idb
 *.exe
+*.ipch
+*.db-shm
+*.db
+*.db-wal

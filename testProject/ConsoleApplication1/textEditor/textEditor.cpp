@@ -5,12 +5,28 @@
 #include <iostream>
 #include "Application.h"
 
+using namespace std;
 
 int main()
 {
 	Editor edit;
-	auto some = edit.getText();
-    std::cout << "Hello World!\n"; 
+	edit.text = "The quick brown fox jumps over the lazy dog";
+	Application app;
+	app.addEditor(&edit);
+	app.setEditor(0);
+	app.copy(10, 5);
+	app.paste(4);
+	cout << edit.text << endl;
+	app.undo();
+	cout << edit.text << endl;
+	app.undo();
+	cout << edit.text << endl;
+
+
+
+
+
+	std::cout << "Hello World!\n";
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴

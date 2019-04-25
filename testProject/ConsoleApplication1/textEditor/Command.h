@@ -4,10 +4,9 @@
 
 class Application;
 
-class Command
-{
+class Command {
 public:
-	Command(std::string* _appText, Editor* _edit, int _pos = 0, int _length = 0);
+	Command(std::string* _appText, Editor* _edit, int _pos = 0, int _length = 0, const std::string& _text = "");
 	virtual ~Command() {}
 
 	bool saveBackUp();
@@ -16,6 +15,7 @@ public:
 
 protected:
 	std::string text = "";
+	std::string backUp = "";	
 	std::string* appText;
 	Editor* editor;
 
@@ -23,40 +23,12 @@ protected:
 	int length;
 };
 
+struct MacroCommand {
+	virtual ~MacroCommand();
 
-class CopyCommand : public Command {
-public:
-	CopyCommand(std::string* _appText, Editor* _edit,
-		int pos, int length);
-	virtual ~CopyCommand() {}
-	virtual bool execute() override;
+	bool push(Command* _cmd);
+	Command* pop();
 
-};
-
-class CutCommand : public Command {
-public:
-	CutCommand(std::string* _appText, Editor* _edit,
-		int pos, int length);	
-	virtual ~CutCommand() {}
-	virtual bool execute() override;
+	std::stack<Command*> cmdStack;
 
 };
-
-class ReplaceCommand : public Command {
-public:
-	ReplaceCommand(std::string* _appText, Editor* _edit,
-		int pos, int length);
-	virtual ~ReplaceCommand() {}
-	virtual bool execute() override;
-
-};
-
-class PasteCommand : public Command {
-public:
-	PasteCommand(std::string* _appText, Editor* _edit,
-		int pos, int length);
-	virtual ~PasteCommand() {}
-	virtual bool execute() override;
-
-};
-
