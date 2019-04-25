@@ -4,14 +4,20 @@
 #include "pch.h"
 #include <iostream>
 
+using namespace std;
+
 int fibonacci(int n) {
-	
-	return;
+	int newNumber;
+	if (n == 1 || n == 2) { newNumber = 1 };
+	newNumber = fibonacci(n - 1) + fibonacci(n - 2);
+	return newNumber;
 }
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	int a;
+	std::cin >> a;
+    std::cout << fibonacci(a); 
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
