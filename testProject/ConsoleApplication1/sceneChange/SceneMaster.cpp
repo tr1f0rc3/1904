@@ -4,6 +4,10 @@
 #include "Scene0.h"
 #include "Scene1.h"
 
+SceneMaster::SceneMaster() {
+	createAndSetScene(0);
+}
+
 SceneMaster::~SceneMaster() {
 	if (scenes.size() != 0) {
 		for (auto scene : scenes) {
@@ -27,21 +31,25 @@ SceneMaster* SceneMaster::getInstance() {
 }
 
 bool SceneMaster::createScene(int i) {
-	Scene* temp = nullptr;
-	switch (i) {
-	case 0: {
-		temp = new Scene0;
-		break;
+	auto it = scenes.find(i);
+	if (it != scenes.end()) { return false; }
+	else {
+		Scene* temp = nullptr;
+		switch (i) {
+		case 0: {
+			temp = new Scene0;
+			break;
+		}
+		case 1: {
+			temp = new Scene1;
+			break;
+		}
+		default:
+			return false;
+		}
+		addScene(temp);
+		return true;
 	}
-	case 1: {
-		temp = new Scene1;
-		break;
-	}
-	default:
-		break;
-	}
-	addScene(temp);
-	return true;
 }
 
 
@@ -65,8 +73,8 @@ bool SceneMaster::setScene(int _id) {
 }
 
 bool SceneMaster::createAndSetScene(int _id) {
-	return (createScene(_id) &&
-		setScene(_id));
+	createScene(_id);
+	return setScene(_id);
 }
 
 bool SceneMaster::currSceneInfo() const {
@@ -89,38 +97,49 @@ bool SceneMaster::allSceneInfo() const {
 	}
 }
 
-void SceneMaster::init() {
-	createAndSetScene(0);
-}
-
 void SceneMaster::getInput() {
 	char _input;
-	do {
+	while (true) {
+
 		std::cin >> _input;
-	} while (_input);
-	SceneMaster::keyInput toInput;
-	switch (_input)	{
-	case 'w':
-		toInput = SceneMaster::keyInput::up;
-		break;
-	case 's':
-		SceneMaster::keyInput::down;
-		break;
-	case 'a':
-		SceneMaster::keyInput::left;
-		break;
-	case 'd':
-		SceneMaster::keyInput::right;
-		break;
-	case 'y':
-		SceneMaster::keyInput::yes;
-		break;
-	case 'n':
-		SceneMaster::keyInput::no;
-		break;
-	default:
-		SceneMaster::keyInput::none;
-		break;
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			continue;
+		}
+
+		SceneMaster::keyInput toInput;
+		switch (_input) {
+		case 'w':
+			toInput = SceneMaster::keyInput::up;
+			break;
+		case 's':
+			toInput=SceneMaster::keyInput::down;
+			break;
+		case 'a':
+			toInput=SceneMaster::keyInput::left;
+			break;
+		case 'd':
+			toInput=SceneMaster::keyInput::right;
+			break;
+		case 'y':
+			toInput=SceneMaster::keyInput::yes;
+			break;
+		case 'n':
+			toInput=SceneMaster::keyInput::no;
+			break;
+		case 'Q':
+			toInput=SceneMaster::keyInput::quit;
+			std::cout << "let's quit" << std::endl;
+			return;
+		default:
+			SceneMaster::keyInput::none;
+			break;
+		}
+
+		currScene->getInput(toInput);
+		currScene->update();
+		currScene->render();
 	}
-	currScene->getInput(toInput);
 }

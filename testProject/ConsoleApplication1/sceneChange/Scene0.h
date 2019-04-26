@@ -16,5 +16,5 @@ public:
 
 
 	int sc0Cnt = 0;
-	std::string printText = "";
+	std::string printText = "Welcome to Scene 0";
 };

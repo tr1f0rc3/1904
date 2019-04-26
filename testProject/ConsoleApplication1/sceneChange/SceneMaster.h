@@ -6,7 +6,7 @@ class SceneMaster
 {
 
 private:
-	SceneMaster() = default;
+	SceneMaster();
 	virtual ~SceneMaster();
 	SceneMaster(const SceneMaster&) = delete;
 	SceneMaster(SceneMaster&&) = delete;
@@ -16,22 +16,21 @@ public:
 	static SceneMaster* getInstance();
 
 public:
-	bool createScene(int i);
-	bool setScene(int id);
 	bool createAndSetScene(int _id);
+	bool setScene(int id);
 	bool currSceneInfo() const;
 	bool allSceneInfo() const;
 
-	void init();
 	void getInput();
 
 	enum class keyInput {
-		none, up, down, left, right, yes, no, 
+		none, up, down, left, right, yes, no, quit,
 	};
 
 
 
 protected:
+	bool createScene(int i);
 	bool addScene(Scene* _scene);
 
 	std::map<int, Scene*> scenes;

@@ -3,8 +3,8 @@
 #include "SceneMaster.h"
 
 
-Scene::Scene(int _ID) : ID(_ID) { getInfo(); }
+Scene::Scene(int _ID) : ID(_ID) { }
 
 bool Scene::changeScene(int _id) {
-	return SceneMaster::getInstance()->setScene(_id);
+	return SceneMaster::getInstance()->createAndSetScene(_id);
 }

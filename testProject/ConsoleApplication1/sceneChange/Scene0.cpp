@@ -1,3 +1,5 @@
+
+
 #include "pch.h"
 #include "Scene0.h"
 #include "SceneMaster.h"
@@ -62,7 +64,6 @@ bool Scene0::update() {
 }
 
 bool Scene0::render() const {
-	system("cls");
 	std::cout << printText << std::endl;
 	return true;
 }

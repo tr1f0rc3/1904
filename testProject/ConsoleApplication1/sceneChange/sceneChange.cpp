@@ -3,10 +3,13 @@
 
 #include "pch.h"
 #include <iostream>
-
+#include "SceneMaster.h"
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	// enable Property pages->C/C++->Code Generation->Basic Runtime Checks->StackFrames
+
+	SceneMaster::getInstance()->getInput();
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
