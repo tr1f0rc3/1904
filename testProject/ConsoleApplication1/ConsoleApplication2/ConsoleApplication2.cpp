@@ -3,6 +3,7 @@
 #include "pch.h"
 #include "add.h"
 #include <iostream>
+#include <regex>
 using namespace std;
 
 template<size_t N>
@@ -41,8 +42,27 @@ struct DropTheBit<1> {
 	enum { Val = 1 };
 };
 
+bool isIPv4Address(std::string inputString) {
+	regex IP("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
+	if (!regex_match(inputString, IP)) return false;
+
+	auto oldIt = inputString.begin();
+	for (int i = 0; i != 4; ++i) {
+		auto newIt = find(inputString.begin(), inputString.end(), '.');
+		if (newIt == oldIt) return false;
+		string tempS = inputString.substr((oldIt - inputString.begin()), (newIt - oldIt));
+		int tempI = stoi(tempS);
+		if (tempI > 255 || tempI < 0) return false;
+		oldIt = newIt + 1;
+	}
+	return true;
+}
+
+
 int main()
 {
+
+	cout << isIPv4Address("172.16.254.1");
 	cout << Fibo<30>::N << endl;
 
 	cout << DropTheBit<11111>::Val << endl;

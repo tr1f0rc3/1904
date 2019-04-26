@@ -16,4 +16,5 @@ public:
 
 
 	int sc0Cnt = 0;
+	std::string printText = "";
 };
