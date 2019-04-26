@@ -19,91 +19,42 @@ void SetValue(Test<n>* t)
 }
 
 
+#define TestNum(nAr, nCount) \
+Test<nAr>* p##nAr = new Test<nAr>[nCount]; \
+tStamp = timeGetTime(); \
+for (int i = 0; i < nCount; ++i) \
+{ \
+    SetValue<nAr>(&p##nAr[nAr]); \
+} \
+now = timeGetTime() - tStamp; \
+cout << nAr << " = 걸린시간 : " << now << endl;
+
+#define DeleteTest(nAr) \
+delete p##nAr;\
+p##nAr = nullptr;
+
 
 int main()
 {
 	using namespace std;
 
 	constexpr int nCount = 250000;
+	DWORD tStamp = 0;
+	DWORD now = 0;
 
-	Test<1>* p1 = new Test<1>[nCount];
+	TestNum(1, nCount);
+	TestNum(2, nCount);
+	TestNum(16, nCount);
+	TestNum(128, nCount);
+	TestNum(512, nCount);
 
-	auto tStamp = timeGetTime();
-
-	for (int i = 0; i < nCount; ++i)
-	{
-		SetValue<1>(&p1[i]);
-	}
-
-	auto now = timeGetTime() - tStamp;
-
-	cout << 1 << " = 걸린시간 : " << now << endl;
-
-
-
-	Test<16>* p16 = new Test<16>[nCount];
-
-	tStamp = timeGetTime();
-
-	for (int i = 0; i < nCount; ++i)
-	{
-		SetValue<16>(&p16[i]);
-	}
-
-	now = timeGetTime() - tStamp;
-
-	cout << 16 << " = 걸린시간 : " << now << endl;
+	DeleteTest(1);
+	DeleteTest(2);
+	DeleteTest(16);
+	DeleteTest(128);
+	DeleteTest(512);
 
 
-
-	Test<64>* p64 = new Test<64>[nCount];
-
-	tStamp = timeGetTime();
-
-	for (int i = 0; i < nCount; ++i)
-	{
-		SetValue<64>(&p64[i]);
-	}
-
-	now = timeGetTime() - tStamp;
-
-	cout << 64 << " = 걸린시간 : " << now << endl;
-
-
-	Test<256>* p256 = new Test<256>[nCount];
-
-	tStamp = timeGetTime();
-
-	for (int i = 0; i < nCount; ++i)
-	{
-		SetValue<256>(&p256[i]);
-	}
-
-	now = timeGetTime() - tStamp;
-
-	cout << 256 << " = 걸린시간 : " << now << endl;
-
-
-	Test<1024>* p1024 = new Test<1024>[nCount];
-
-	tStamp = timeGetTime();
-
-	for (int i = 0; i < nCount; ++i)
-	{
-		SetValue<1024>(&p1024[i]);
-	}
-
-	now = timeGetTime() - tStamp;
-
-	cout << 1024 << " = 걸린시간 : " << now << endl;
-
-
-
-	delete[] p1;
-	delete[] p16;
-	delete[] p64;
-	delete[] p256;
-	delete[] p1024;
 
 
 	return 0;

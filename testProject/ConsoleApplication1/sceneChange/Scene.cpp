@@ -3,12 +3,8 @@
 #include "SceneMaster.h"
 
 
+Scene::Scene(int _ID) : ID(_ID) { getInfo(); }
 
-
-Scene::Scene() { getInfo(); }
-
-
-bool Scene::getInput(char _c) {
-	keyInput = _c;
-	return true;
+bool Scene::changeScene(int _id) {
+	return SceneMaster::getInstance()->setScene(_id);
 }

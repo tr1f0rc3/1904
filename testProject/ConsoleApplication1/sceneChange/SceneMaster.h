@@ -18,12 +18,16 @@ public:
 public:
 	bool createScene(int i);
 	bool setScene(int id);
+	bool createAndSetScene(int _id);
 	bool currSceneInfo() const;
 	bool allSceneInfo() const;
 
+	void init();
 	void getInput();
 
-
+	enum class keyInput {
+		none, up, down, left, right, yes, no, 
+	};
 
 
 

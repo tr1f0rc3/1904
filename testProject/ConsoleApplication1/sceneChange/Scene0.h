@@ -1,20 +1,19 @@
 #pragma once
 #include "Scene.h"
 
-class Scene0
-{
+class Scene0 : public Scene {
 public:
-	virtual void getInfo() const = 0;
-	int getID() const { return ID; }
 
-	virtual bool init();
-	virtual bool update();
-	virtual bool render() const;
+	Scene0();
+	virtual ~Scene0() {}
 
-	//bool changeScene(int id) {
-	//	SceneMaster::getInstance()->
-	//}
+	virtual void getInfo() const override;
 
-	SceneMaster* master;
-	int ID;
+	virtual bool init() override;
+	virtual bool getInput(SceneMaster::keyInput _input) override;
+	virtual bool update() override;
+	virtual bool render() const override;
+
+
+	int sc0Cnt = 0;
 };
