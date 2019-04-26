@@ -1,6 +1,6 @@
 #pragma once
-#include "Scene.h"
 
+class Scene;
 
 class SceneMaster
 {
@@ -11,19 +11,25 @@ private:
 	SceneMaster(const SceneMaster&) = delete;
 	SceneMaster(SceneMaster&&) = delete;
 	inline static SceneMaster* instance = nullptr;
+
 public:
-	SceneMaster* getInstance();
+	static SceneMaster* getInstance();
+
 public:
-	bool addScene(Scene* _scene);
+	bool createScene(int i);
 	bool setScene(int id);
 	bool currSceneInfo() const;
-	bool AllSceneInfo() const;
+	bool allSceneInfo() const;
+
+	void getInput();
 
 
 
 
 
 protected:
+	bool addScene(Scene* _scene);
+
 	std::map<int, Scene*> scenes;
 	Scene* currScene = nullptr;
 };

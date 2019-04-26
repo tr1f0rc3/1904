@@ -155,6 +155,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMaster.h" />
+    <ClInclude Include="Scene0.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -166,6 +167,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="sceneChange.cpp" />
     <ClCompile Include="SceneMaster.cpp" />
+    <ClCompile Include="Scene0.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
