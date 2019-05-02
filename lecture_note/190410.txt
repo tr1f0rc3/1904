@@ -1,0 +1,62 @@
+inheritance is a 
+function override 시 parent function call 하지 않음.
+override는 compiler가 inheritance check하는 용도.
+virtual 및 override는 in class 선언만 해줘도 됨.
+in class 에서 const 선언시 out class에서 definition 할 때도 const 붙여야 함. 다른 함수. overloading 가능.
+srand(time(0))==srand(time(null))
+
+부모 class stack pointer로 자식 class를 가르키면 해당 class의 멤버 만 접근 가능.
+근데 실행하면 실제 자식 class가 override한 멤버함수를 실행하던데.
+virtual 을 빼야 자식의 함수 대신 부모의 함수를 실행함.
+부모 class heap pointer로 class를 가르키면 실제 객체의 멤버도 접근가능.
+
+자식의 pointer로 부모를 가르키는 경우 dynamic_cast해야 함. 권장하지 않음.
+
+연산자 오버로딩은 멤버함수가 유지관리에 좋음.
+비교는 바깥에 놓는게 보기는 좋음.
+
+os에 요청할 수 있는 것: pointer, file pointer, lock, socket 등
+
+memory handle 시 복사생성자가 안전하고
+// 대입연산자 사용 시 조심해야 함. dangling pointer 방지.
+
+functor: operator()
+filter에 쓰기도 함.
+
+== 정의하면 !=도 정의하는게 좋음
+
+< 정의하면 > <= >= 도.
+
+28-4 예제 숙제
+
+begin(), end()도 정의 가능. 
+being end만 있으면 ranged for 도 정의 가능.
+
+비트복사도 괜찮은 건 복사생성자 만들 필요 없음. 기본 복사생성자 사용.
+주소와 값 복사 같이해야할 땐 복사생성자 만들어야. 주소만 복사하면 얕은복사 되서 위험함.
+
+Point operator+(const Point& s)
+Point& operator+=(const Point& s) 보통 자기 자신 return 함.
+
+임수 변수 만들지 말고 바로 리턴하는게 더 빠름.
+
+new가 기본적으로 느림. new 사용 시 메모리에 계속 구멍남.
+object pooling loading 시 new를 미리 만들어 놓고 그 new 내에서 계산함.
+서버 측에서는 new를 미리 1gb만들어 놓기도 함.
+
+메모리를 연장하는 연산은 없음. 지우고 다시 만들어야함.
+explicit 생성자로 만들면 b = 1 식으로는 생성이 안됨 b(1) 가능
+
+[x,y] c++ 17 tuple 시 사용
+	int ar[2]{ 1,2 };
+	auto[x, y] = ar;
+	auto& [xx, yy] = ar; // xx 수정시 ar 수정됨
+	auto [q, r] = p; // q 가 (int &&)
+	auto& [q, r] = p; // q& 가 (int &&)
+	auto[x, y, z] = Temp(1, 'a', 3); // x, y, z 모두 (int)
+
+static_assert 컴파일 이전에. template 사용 시 좋음.
+
+부모 class 삭제하려면 부모 class에 대해 다 알아야함.
+
+#pragma pack(push, 1) 사용 시 느려짐. 네트워크 보낼땐 꼭 써야함.
