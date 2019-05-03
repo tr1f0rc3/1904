@@ -1,41 +1,21 @@
 #pragma once
 
-#include "Node.h"
+#include "pch.h"
+#include "PtrBasedDataStructure.h"
 
 template <typename T>
-class LinkedList
+class LinkedList final : public PtrBasedDataStructure<T>
 {
 public:
-	~LinkedList();
-
 	void PrintAll();
-	void AddNode(T);
 	Node<T>* FindNode(T);
 	bool DeleteNode(T);
-
-	Node<T>* Head = nullptr;
-	Node<T>* Tail = nullptr;
 };
-
-template <typename T>
-LinkedList<T>::~LinkedList()
-{
-	Node<T>* FrontierNode(Head);
-	Node<T>* FollowingNode(Head);
-
-	while (FollowingNode != nullptr)
-	{
-		FrontierNode = FollowingNode->NextNodePtr;
-		delete FollowingNode;
-		FollowingNode = nullptr;
-		FollowingNode = FrontierNode;
-	}
-}
 
 template <typename T>
 void LinkedList<T>::PrintAll()
 {
-	Node<T>* TraversingNode(Head);
+	Node<T>* TraversingNode(PtrBasedDataStructure<T>::Head);
 	while (TraversingNode != nullptr)
 	{
 		std::cout << TraversingNode->Value << ' ';
@@ -44,31 +24,10 @@ void LinkedList<T>::PrintAll()
 	std::cout << std::endl;
 }
 
-
-template <typename T>
-void LinkedList<T>::AddNode(T NodeValueInput)
-{
-	Node<T>* NewNode = new Node<T>;
-	NewNode->Value = NodeValueInput;
-
-	if (Head == nullptr)
-	{
-		Head = NewNode;
-		Head->PrevNodePtr = nullptr;
-	}
-	else
-	{
-		NewNode->PrevNodePtr = Tail;
-		Tail->NextNodePtr = NewNode;
-	}
-	NewNode->NextNodePtr = nullptr;
-	Tail = NewNode;
-}
-
 template <typename T>
 Node<T>* LinkedList<T>::FindNode(T NodeValueInput)
 {
-	Node<T>* TraversingNode(Head);
+	Node<T>* TraversingNode(PtrBasedDataStructure<T>::Head);
 	while (TraversingNode != nullptr)
 	{
 		if (TraversingNode->Value == NodeValueInput)
@@ -91,18 +50,20 @@ bool LinkedList<T>::DeleteNode(T NodeValueInput)
 	{
 		return false;
 	}
-	else if (ToBeDeletedNode == Head && ToBeDeletedNode == Tail)
+	else if (ToBeDeletedNode == PtrBasedDataStructure<T>::Head && ToBeDeletedNode == PtrBasedDataStructure<T>::Tail)
 	{
+		PtrBasedDataStructure<T>::Head = nullptr;
+		PtrBasedDataStructure<T>::Tail = nullptr;
 	}
-	else if (ToBeDeletedNode == Head)
+	else if (ToBeDeletedNode == PtrBasedDataStructure<T>::Head)
 	{
 		ToBeDeletedNode->NextNodePtr->PrevNodePtr = nullptr;
-		Head = ToBeDeletedNode->NextNodePtr;
+		PtrBasedDataStructure<T>::Head = ToBeDeletedNode->NextNodePtr;
 	}
-	else if (ToBeDeletedNode == Tail)
+	else if (ToBeDeletedNode == PtrBasedDataStructure<T>::Tail)
 	{
 		ToBeDeletedNode->PrevNodePtr->NextNodePtr = nullptr;
-		Tail = ToBeDeletedNode->PrevNodePtr;
+		PtrBasedDataStructure<T>::Tail = ToBeDeletedNode->PrevNodePtr;
 	}
 	else
 	{
@@ -110,7 +71,6 @@ bool LinkedList<T>::DeleteNode(T NodeValueInput)
 		ToBeDeletedNode->NextNodePtr->PrevNodePtr = ToBeDeletedNode->PrevNodePtr;
 	}
 	delete ToBeDeletedNode;
-	ToBeDeletedNode = nullptr;
 	return true;
 }
 

@@ -154,6 +154,8 @@
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PtrBasedDataStructure.h" />
+    <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
   </ItemGroup>
   <ItemGroup>
