@@ -1,72 +1,65 @@
 ﻿// ConsoleApplication2.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 //
+
 #include "pch.h"
-#include "add.h"
+#pragma warning(disable:4996)
+#define _CRT_SECURE_NO_WARNINGS
+
+
 #include <iostream>
-#include <regex>
+#include <map>
+#include <vector>
+#include <algorithm>
 using namespace std;
+struct SuperSum {
 
-template<size_t N>
-class Fibo {
-	static_assert(N >= 2);
-public:
-	const static int N = (Fibo<N - 2>::N) + (Fibo<N - 1>::N);
-};
+	SuperSum() = default;
+	int ssd(vector<int> _stairVec, int cnt) {
 
-template<>
-class Fibo<1> {
-public:
-	const static int N = 1;
-};
+		int sum(0);
 
-template<>
-class Fibo<0> {
-public:
-	const static int N = 0;
-};
+		auto it = dic.find({ _stairVec, cnt });
+		if (it != dic.end()) {
+			sum = it->second;
+			return sum;
+		}
 
-template<size_t N>
-struct DropTheBit {
-	enum {
-		Val = (DropTheBit<N/10>:: Val*2) + DropTheBit<N%2>::Val
-		};
-};
+		size_t sLength = _stairVec.size();
 
-template<>
-struct DropTheBit<0> {
-	enum {Val = 0};
-};
-
-template<>
-struct DropTheBit<1> {
-	enum { Val = 1 };
-};
-
-bool isIPv4Address(std::string inputString) {
-	regex IP("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
-	if (!regex_match(inputString, IP)) return false;
-
-	auto oldIt = inputString.begin();
-	for (int i = 0; i != 4; ++i) {
-		auto newIt = find(inputString.begin(), inputString.end(), '.');
-		if (newIt == oldIt) return false;
-		string tempS = inputString.substr((oldIt - inputString.begin()), (newIt - oldIt));
-		int tempI = stoi(tempS);
-		if (tempI > 255 || tempI < 0) return false;
-		oldIt = newIt + 1;
+		if (sLength > 1) {
+			vector<int> vec1 = _stairVec;
+			vec1.pop_back();
+			vector<int> vec2 = vec1;
+			vec2.pop_back();
+			int value1, value2;
+			value1 = ssd(vec2, 0);
+			if (cnt < 1) {
+				value2 = ssd(vec1, cnt + 1);
+			}
+			sum = _stairVec[sLength - 1] + max(value1, value2);
+		}
+		else if (sLength == 1) { sum = _stairVec[sLength - 1]; }
+		else { sum = 0; }
+		dic.insert({ {_stairVec,cnt}, sum });
+		return sum;
 	}
-	return true;
-}
 
+	map<pair<vector<int>, int>, int> dic;
+};
 
 int main()
 {
+	int k, n, i(0);
+	SuperSum ss;
+	vector<int> vec;
+	cin >> n;
+	for (int i = 0; i < n; ++i) {
+		cin >> k;
+		vec.push_back(k);
+	}
+	int value = ss.ssd(vec, 0);
+	cout << value << endl;
 
-	cout << isIPv4Address("172.16.254.1");
-	cout << Fibo<30>::N << endl;
-
-	cout << DropTheBit<11111>::Val << endl;
-	cout << add(1, 3) << endl;
 
 }
 
