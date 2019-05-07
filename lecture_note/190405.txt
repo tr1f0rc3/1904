@@ -1,0 +1,141 @@
+
+Turbo.h
+sleep(n) // 스레드 정지. 몇 초 멈춰줌. 통상은 위험함.
+system("cls") // 화면삭제
+
+cpp 파일 단위로 컴파일함.
+
+모듈의 include 시 제약 사항 확인.
+
+3줄 이하 함수 앞에 inline 꼭 붙임.
+inline은 macro 처럼 복붙하긴 하지만 compiler가 검사를 함.
+inline 쓰면 main 함수에서 타 function 위치로 메모리를 왓다갓다하는 부하를 줄여줌.
+
+enum은 아마 inline과 비슷한 개념...?
+
+extern 전역변수 사용 하면 위험함.
+auto는 구식.
+
+random pool 사용 시 random 호출 시 이미 만들어진 수에서 뽑아옴. 빠름.
+
+srand는 cstdlib에
+time은 ctime에
+
+표기법. 공부해야 함.
+헝가리안. 사라지는 추세. 좀 더 빨라짐.
+카멜 표기법.
+
+assert 예외처리. 오류 발생. release에서 빠짐. 적극적으로 써도됨
+
+contexpr는 const와 달리 함수도 가능.
+volatile 캐시 하지마세요 요청. 안씀. 멀티스레드시는 사용.
+unreal unity는 보통 single thread.
+
+const 를 cast해서 강제로 없애면 위험함.
+
+contexpr 함수에 변수가 입력될경우 constexpr 장점 못살림. (심지어 constexpr 변수이더라도)
+return이 constexpr이란 뜻이 아님.
+function(5) 식으로 해야 시간 줄일 수 있음.
+constexpr은 다음 규칙이 적용된다.
+1. constexpr 함수는 오직 literal type을 반환해야 한다.
+2. constexpr은 재귀적일 수 있다.
+3. virtual 키워드는 불가능 하다. 생성자가 virtual 베이스의 클래스를 가진 클래스라면 constexpr을 사용할 수 없다.
+4. body는 = default 또는 = delete로 정의될 수 있다. (뭔소리인가..? 나는 누구인가? 나중에 이해하면 고치자..)
+5. body에 goto문 또는 try 블록을 포함할 수 없다.
+constexpr 변수는 메모리를 잡음
+
+initialzier_list 는 무조건 사용. {}와 동일. {}로 선언.
+{} 시 type check가 엄격함. int c{10.5f} 에러남
+
+옛 주석은 주의해야함. 사람 헷갈리게 함.
+
+배열 사용할 경우 예외 처리는 꼭 해야 함.
+
+용량은 희생 많이 해도 된다. 보통은.
+
+보통은 2차배열 굳이 필요 없음. // index = i * Count + j
+컴파일러는 가로랑 친함. 세로 가로 성능 차 크게남. 메모리를 블록 단위로 소환하기 때문.
+0~10 소환 10 ~20 소환
+
+c++의 특징. 참조값을 저장할 수 있음.
+
+레퍼런스랑 원형이랑 눈으로 구분이 힘듬. 위험해서 잘 안씀.
+const reference 로 보통 함수 인자로 넘김. const 시 성능도 향상.
+
+2중 포인터까지는 쓰임. 함수 인자로 받을 때 사용.
+
+배열 != 포인터.
+		int arr[10];
+		int *parr = new int[10];
+		cout << typeid(arr).name() << endl;
+		cout << typeid(parr).name() << endl;
+		암묵 적으로 포인터로 캐스팅 해줌.
+
+int* p = &a // p+1 시 4byte 만큼 뜀
+
+pointer에 + 연산 시 주소 범위를 넘어선 걸 참조 시 오류가 안나는 경우가 있음. 버그잡기 힘듬.
+주소를 잘 이용해야 함.
+
+*p++ 는 자주 사용함.
+
+포인터에 음수를 넣는 건 일반적이지 않다. 관례.
+
+container 내 element를 접근 할 때는 주소를 빼는게 의미가 있음.
+		double ar[5] = { 1,2,3,4,5 };
+		double* p = ar;
+		double* p2 = p + 3;
+		cout << p2 - p << endl; // 3
+		cout << (int)p2 - (int)p << endl; // 24
+		
+모든 포인터는 nullptr로 초기화 하자. 많은 버그의 원인!
+nullptr하면 읽기쓰기 금지한 영역을 가르킴
+
+메모리에 직접 접근할 권한 없음. os에 요청.
+다른 언어는 메모리한에서만. os자원 가져오는 건 c++ 의 특징.
+new 하면 꼭 delete. 꼭 기본임. 삭제 후 nullptr 꼭 초기화 해줘야함.
+os가 관리를 다 못할 수도 있음. 버그 찾기가 진짜 힘듦.
+new 한 후 주소 변경 후 delete해도 위험함.
+new delete는 꼭 module 내에서 해야 함.
+
+매크로
+#define SAFE_DELETE(x) {if((x) != nullptr) {delete (x); (x) = nullptr;}}
+#define SAFE_DELETE_ARR(x) {if((x) != nullptr) {delete[] (x); (x) = nullptr;}} 
+//괄호는 성능에 영향 x
+
+
+int* p = new int[4]{ 1,2,3,4 };
+int* p2 = p; // p2와 p 모두 os가 할당해준 메모리를 가르킴
+for (int i = 0; i < 4; ++i) {
+	cout << p[i] << endl;
+	cout << *p2++ << endl; // 위험함. 변경된 위치에서 delete함.
+}
+
+for가 통상 빠른데 ranged_for가 더 빠름. 적극권장. 타 언어의  for each
+
+2중포인터 // 함수 안에서 new하려면 더블 포인터를 넘겨야함.
+void makememory(int** pa, int nsize) {
+	if (*pa != nullptr) { return; }
+	*pa = new int[nsize];
+	int* p = *pa;
+	for (int i = 0; i < nsize; ++i) {
+		p[i] = i;
+	}
+}
+
+int main()
+{
+	{
+		int* pa = nullptr;
+		enum { count = 10 };
+		makememory(&pa, count);
+		for (int i = 0; i < count; ++i) {
+			cout << pa[i] << endl;
+		}
+		SAFE_DELETE_ARR(pa);
+	}
+	getchar();
+}
+
+7장 패스.
+8-3 건너 뛰기 
+소코반 숙제

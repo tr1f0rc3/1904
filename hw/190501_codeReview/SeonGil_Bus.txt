@@ -1,0 +1,60 @@
+@startuml
+class BusStopClass
+{
+	- int m_nMaxBusStop;
+	- int m_nBusStopCount = 0;
+	- int BusCount[BusMaxCount];
+	--
+	+void BusMove();
+	+void Update();
+	+void Render(int Number);
+	+int TimeCaculator(int Number);
+	+int BusCaculator(int Number);
+	+char *BusStopName(int Number);
+	+void SetBusNumber(int Number);
+	+void ScreenDraw();
+	+int CheckName(const char *CompareName);
+	+void FullName();
+--
+	- struct BusStop;
+	- BusStop *m_nHead = nullptr;
+--
+	+ void AddBusStop();
+	+ void AddBusStop(int a_Time, const char *a_Name);
+}
+BusStopClass "1" o--> "1" BusStop
+
+class BusStop <<Struct>>{
+		int Time;
+		BusStop *Link = nullptr;
+		char Name[BusFullName];
+		bool BusOn = false;
+}
+
+note as N1
+/ BusStop::CheckName()
+/// Temp = m_nHead->Link; 반복 시 더 진행이 안됨
+
+/ BusStop::AddBusTop() 
+/// temp와 tmp라는 임시변수가 있는데
+더 명시적으로 구분했으면.
+/// if (Temp == nullptr) 와 if (Temp != nullptr)를
+/// if와 else로 묶으면 보기 편할 듯.
+/// Link를 잘못 이음. 예시에선 B에서 더 진행이 안됨. 
+/// 주석으로 처음에 순환형 linked-list라고 명시하면 더 좋을 듯. 
+
+/ BusStop::Render() 시 이름을 못찾으면 -1을 반환하는데
+array subscript 시  이를 대입해 에러가 남. 예외처리 추가해야 함.
+
+/ BusOn 네이밍을 더 명확히.
+
+/ 버스가 뒤에서 앞으로 옴. 의도와 다르리라 예상함.
+
+/ Bus와 BusStopClass, BusStopManager 등으로 클래스를 세분화
+하면 좋겠음.
+
+end note
+
+
+
+@enduml

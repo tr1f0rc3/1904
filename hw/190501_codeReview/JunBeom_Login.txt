@@ -1,0 +1,58 @@
+@startuml
+
+class Login <<Singeton>> {
+	std::map<std::string, User*> m_LoginData;
+	User* m_LoginUser = nullptr;
+	--
+	void Init();
+	bool SignID();
+	bool FindID(std::string a_V) const;
+	bool UserLogin();
+	User * GetUser();
+	void UserLogout();
+}
+note top: using Insert = std::pair< std::string, User* >;
+Login o--> User
+class User
+{
+	LoginData m_nLoginData;
+	--
+	LoginData GetData() const;
+	void SetData(std::string a_PW, std::string a_Name, int a_Age,
+		LoginData::Gender a_Gender, std::string a_Hint);
+	void SetName();
+	void SetGender();
+	void SetAge();
+	void SetPW();
+	void SetHint();
+	bool Find_PW();
+	void ChangeInfo();
+}
+User -> LoginData
+
+class LoginData <<Struct>>
+{
+	int m_nAge = 0;
+	Gender m_eGender = Gender::None;
+	std::string	m_strPW = "";
+	std::string	m_strName = "";
+	std::string m_PWHint = "";
+}
+LoginData ->Gender
+
+enum Gender
+	{
+		None = -1,
+		Male = 0,
+		Female,
+	}
+
+note as N1
+// id 정보 출력 함수 위치를 main에서
+ 클래스 멤버함수로 위치 변경했으면.
+// note 로그인 실패 시 assert 대신 cout으로 출력.
+end note
+
+
+
+@enduml
