@@ -15,8 +15,6 @@ public:
 	T Pop();
 };
 
-
-
 template <typename T>
 void Queue<T>::Push(T NodeValue)
 {
@@ -24,7 +22,6 @@ void Queue<T>::Push(T NodeValue)
 }
 
 template <typename T>
-
 T Queue<T>::Front()
 {
 	if (PtrBasedDataStructure<T>::Head == nullptr)
