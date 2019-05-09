@@ -4,6 +4,10 @@
 #include "pch.h"
 #include "BubbleSort.h"
 #include "InsertionSort.h"
+#include "SelectionSort.h"
+#include "QuickSort.h"
+
+
 
 
 
@@ -15,6 +19,11 @@ int main()
 	bubbleSort<int>(&vec1);
 	vector<char> vec2{ 'c', 'o', 'm', 'p', 'l', 'e', 't','e' };
 	insertionSort<char>(&vec2);
+	vector<int> vec3{ 6, 4, 7, 1, 2, 5, 3 };
+	selectionSort<int>(&vec3);
+	vector<int> vec4{ 6, 4, 7, 1, 2, 5, 3 };
+	quickSort<int>(vec4.begin(), vec4.end());
+
 
 
 

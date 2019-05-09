@@ -154,6 +154,8 @@
     <ClInclude Include="BubbleSort.h" />
     <ClInclude Include="InsertionSort.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="QuickSort.h" />
+    <ClInclude Include="SelectionSort.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

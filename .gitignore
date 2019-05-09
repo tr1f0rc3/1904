@@ -23,3 +23,5 @@ testProject/ConsoleApplication1/textEditor/Debug/vc141.idb
 *.db
 *.db-wal
 hw/190502_DataStructure/.vs/LinkedList/v15/.suo
+*.opendb
+hw/190508_Sorts/.vs/Sorts/v15/.suo
