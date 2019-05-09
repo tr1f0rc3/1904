@@ -7,6 +7,52 @@
 #include "SelectionSort.h"
 #include "QuickSort.h"
 
+int GCD(int lhs, int rhs)
+{
+	if (lhs < rhs)
+	{
+		std::swap(lhs, rhs);
+	}
+	if (lhs % rhs == 0)
+	{
+		return rhs;
+	}
+	else
+	{
+		return GCD(lhs - rhs, rhs);
+	}
+}
+
+struct PP {
+	using int32 = int;
+	void PrintPrimePow()
+	{
+		for (int32 i = 3; i != 30; ++i)
+		{
+			auto It = PrimePow.find(i);
+			if (It != PrimePow.end())
+			{
+				std::cout << i << ' '<< i*i;
+			}
+			else
+			{
+				for (auto elem : PrimePow)
+				{
+					if (GCD(i, elem.first) == 1)
+					{
+						PrimePow.insert({ i, i * i });
+						std::cout << i << ' ' << i * i;
+						break;
+
+					}
+				}
+			}
+		}
+	}
+
+	std::map<int, int> PrimePow{ {2,4} };
+};
+
 
 
 
@@ -14,6 +60,10 @@
 int main()
 {
 	using namespace std;
+
+	PP pp;
+	pp.PrintPrimePow();
+	cout << GCD(5, 10);
 
 	vector<int> vec1{ 6, 4, 7, 1, 2, 5, 3 };
 	bubbleSort<int>(&vec1);
@@ -23,6 +73,8 @@ int main()
 	selectionSort<int>(&vec3);
 	vector<int> vec4{ 6, 4, 7, 1, 2, 5, 3 };
 	quickSort<int>(vec4.begin(), vec4.end());
+	vector<int> vec5{ 6, 4, 7, 1, 2, 5, 3 };
+	QuickSort02(&vec5, 0, 7);
 
 
 
