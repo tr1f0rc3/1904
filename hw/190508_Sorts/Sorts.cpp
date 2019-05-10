@@ -6,56 +6,9 @@
 #include "InsertionSort.h"
 #include "SelectionSort.h"
 #include "QuickSort.h"
+#include "MergeSort.h"
 
-int GCD(int lhs, int rhs)
-{
-	if (lhs < rhs)
-	{
-		std::swap(lhs, rhs);
-	}
-	if (lhs % rhs == 0)
-	{
-		return rhs;
-	}
-	else
-	{
-		return GCD(lhs - rhs, rhs);
-	}
-}
-
-struct PP {
-	using int32 = int;
-	void PrintPrimePow()
-	{
-		for (int32 i = 3; i != 30; ++i)
-		{
-			auto It = PrimePow.find(i);
-			if (It != PrimePow.end())
-			{
-				std::cout << i << ' '<< i*i;
-			}
-			else
-			{
-				for (auto elem : PrimePow)
-				{
-					if (GCD(i, elem.first) == 1)
-					{
-						PrimePow.insert({ i, i * i });
-						std::cout << i << ' ' << i * i;
-						break;
-
-					}
-				}
-			}
-		}
-	}
-
-	std::map<int, int> PrimePow{ {2,4} };
-};
-
-
-
-
+#include "PrintPrime.h"
 
 int main()
 {
@@ -74,7 +27,11 @@ int main()
 	vector<int> vec4{ 6, 4, 7, 1, 2, 5, 3 };
 	quickSort<int>(vec4.begin(), vec4.end());
 	vector<int> vec5{ 6, 4, 7, 1, 2, 5, 3 };
-	QuickSort02(&vec5, 0, 7);
+	quickSort02(&vec5, 0, 7);
+	vector<int> vec6{ 6, 4, 7, 1, 2, 5, 3 };
+	insertionSort02(&vec6);
+	vector<int> vec7{ 6, 4, 7, 1, 2, 5, 3 };
+	mergeSort<int>(vec7.begin(), vec7.end());
 
 
 

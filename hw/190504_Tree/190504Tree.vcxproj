@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{B20A2F45-40BD-477C-869F-93F28C6AF13A}</ProjectGuid>
+    <ProjectGuid>{D60270DD-9E0E-498E-B152-757F3487A3E1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Sorts</RootNamespace>
+    <RootNamespace>My190504Tree</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -151,22 +151,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BubbleSort.h" />
-    <ClInclude Include="InsertionSort.h" />
-    <ClInclude Include="MergeSort.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="PrintPrime.h" />
-    <ClInclude Include="QuickSort.h" />
-    <ClInclude Include="SelectionSort.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="190504Tree.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Sorts.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

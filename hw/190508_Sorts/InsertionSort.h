@@ -16,3 +16,20 @@ void insertionSort(std::vector<T> *vec) {
 		*it = temp;
 	}
 }
+
+template <typename T>
+void insertionSort02(std::vector<T> *vec) {
+	for (size_t i = 1; i != vec->size(); ++i) {
+		T temp = *(vec->begin() + i);
+		size_t j = i;
+		for (; j != 0; --j) {
+			if ((*vec)[j - 1] > temp) {
+				(*vec)[j] = (*vec)[j - 1];
+			}
+			else {
+				break;
+			}
+		}
+		(*vec)[j] = temp;
+	}
+}

@@ -40,7 +40,7 @@ void quickSort(const typename std::vector<T>::iterator& begIt, const typename st
 
 using int32 = int;
 
-void QuickSort02(std::vector<int>* Arr, int32 Beg, int32 End)
+void quickSort02(std::vector<int>* Arr, int32 Beg, int32 End)
 {
 	if (End - Beg <= 1)
 	{
@@ -79,7 +79,7 @@ void QuickSort02(std::vector<int>* Arr, int32 Beg, int32 End)
 	}
 	std::cout << ' ' << Key << ' ' << Left << ' ' << Right << std::endl;
 
-	QuickSort02(Arr, Beg, Left);
-	QuickSort02(Arr, Left + 1, End);
+	quickSort02(Arr, Beg, Left);
+	quickSort02(Arr, Left + 1, End);
 }
 
