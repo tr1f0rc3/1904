@@ -25,3 +25,10 @@ testProject/ConsoleApplication1/textEditor/Debug/vc141.idb
 hw/190502_DataStructure/.vs/LinkedList/v15/.suo
 *.opendb
 hw/190508_Sorts/.vs/Sorts/v15/.suo
+hw/190607_AlgorithmWithC/Calc01/Calc01.vcxproj
+hw/190607_AlgorithmWithC/Calc01/Calc01.vcxproj.filters
+hw/190607_AlgorithmWithC/Calc01/Calc01.vcxproj.user
+hw/190607_AlgorithmWithC/.vs/AlgorithmWithC/v16/.suo
+hw/190607_AlgorithmWithC/Mouse/Mouse.vcxproj.filters
+hw/190607_AlgorithmWithC/Mouse/Mouse.vcxproj
+hw/190607_AlgorithmWithC/Mouse/Mouse.vcxproj.user
