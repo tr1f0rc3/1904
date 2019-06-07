@@ -32,3 +32,7 @@ hw/190607_AlgorithmWithC/.vs/AlgorithmWithC/v16/.suo
 hw/190607_AlgorithmWithC/Mouse/Mouse.vcxproj.filters
 hw/190607_AlgorithmWithC/Mouse/Mouse.vcxproj
 hw/190607_AlgorithmWithC/Mouse/Mouse.vcxproj.user
+*.vcxproj
+*.user
+*.filters
+hw/190607_designPattern/.vs/DesignPattern/v15/.suo
