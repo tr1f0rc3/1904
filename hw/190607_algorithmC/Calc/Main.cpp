@@ -10,6 +10,9 @@ int main()
 	Calc calc;
 	calc.src = "(1+(2*3))";
 	std::cout << calc.postfix1() << std::endl;
+	calc.src = "(2*(3+6/2)/4+3)";
+	std::cout << calc.postfix2() << std::endl;
+	std::cout << calc.eval("2 3 * 6 2 / + 4 -") << std::endl;
     std::cout << "Hello World!\n";
 }
 
