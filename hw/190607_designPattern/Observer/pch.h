@@ -10,6 +10,8 @@
 #define PCH_H
 #include <iostream>
 #include <vector>
+#include <string>
+#include <map>
 
 // TODO: add headers that you want to pre-compile here
 
