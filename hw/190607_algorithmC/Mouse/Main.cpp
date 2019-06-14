@@ -2,14 +2,12 @@
 //
 
 
-#include <io.h>
-#include <fcntl.h>
 #include "Maze.h"
 #include "Mouse.h"
 
 int main()
 {
-	_setmode(_fileno(stdout), _O_U16TEXT);
+	//_setmode(_fileno(stdout), _O_U16TEXT);
 
 	Maze maze;
 	Mouse mouse(&maze, Maze::MAZE_SIZE - 1, Maze::MAZE_SIZE - 2, Maze::LEFT);
