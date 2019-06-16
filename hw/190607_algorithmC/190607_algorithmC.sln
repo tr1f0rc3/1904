@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mouse", "Mouse\Mouse.vcxproj", "{A0FD6E84-5F5F-4925-B786-13F4B61EC569}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RunLength", "RunLength\RunLength.vcxproj", "{4029A5B3-B620-4210-A565-66614CFC354A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AStar", "AStar\AStar.vcxproj", "{F7AE5653-16FE-4CF6-9A9F-9A5BD0D27320}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HuffmanCoding", "HuffmanCoding\HuffmanCoding.vcxproj", "{F57219CF-C4DB-42A0-AA21-5336AD6A1F42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{F7AE5653-16FE-4CF6-9A9F-9A5BD0D27320}.Release|x64.Build.0 = Release|x64
 		{F7AE5653-16FE-4CF6-9A9F-9A5BD0D27320}.Release|x86.ActiveCfg = Release|Win32
 		{F7AE5653-16FE-4CF6-9A9F-9A5BD0D27320}.Release|x86.Build.0 = Release|Win32
+		{F57219CF-C4DB-42A0-AA21-5336AD6A1F42}.Debug|x64.ActiveCfg = Debug|x64
+		{F57219CF-C4DB-42A0-AA21-5336AD6A1F42}.Debug|x64.Build.0 = Debug|x64
+		{F57219CF-C4DB-42A0-AA21-5336AD6A1F42}.Debug|x86.ActiveCfg = Debug|Win32
+		{F57219CF-C4DB-42A0-AA21-5336AD6A1F42}.Debug|x86.Build.0 = Debug|Win32
+		{F57219CF-C4DB-42A0-AA21-5336AD6A1F42}.Release|x64.ActiveCfg = Release|x64
+		{F57219CF-C4DB-42A0-AA21-5336AD6A1F42}.Release|x64.Build.0 = Release|x64
+		{F57219CF-C4DB-42A0-AA21-5336AD6A1F42}.Release|x86.ActiveCfg = Release|Win32
+		{F57219CF-C4DB-42A0-AA21-5336AD6A1F42}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
