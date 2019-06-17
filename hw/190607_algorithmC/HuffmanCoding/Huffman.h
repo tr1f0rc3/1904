@@ -1,66 +1,146 @@
 #pragma once
 #include <map>
+#include <bitset>
+#include <stack>
 #include "Heap.h"
 #include "HNode.h"
+#include "FileLoader.h"
+
 template <typename T>
 class Huffman
 {
 public:
-	Huffman() = default;
+	Huffman() : Huffman(std::vector<HNode>()) {};
 	Huffman(std::vector<HNode> vec);
+	~Huffman();
 
-	std::vector<std::string> compress(const std::vector<std::string>& text);
-	std::vector<std::string> extract(const std::vector<std::string>& ctext);
+	void compressText(const std::string& inPath = "song.txt", const std::string& outPath = "csong.txt");
+	void extractText(const std::string& inPath = "csong.txt", const std::string& outPath = "esong.txt");
+	FileLoader fileLoader;
 
 protected:
-	void textToHeap(const std::vector<std::string>& text);
+	bool textToHeap(const std::vector<std::string>& text);
+	HNode* minHeapToHuffTree();
+	void huffTreeToTable();
+	void huffTreeProbe(HNode* node, std::string = "");
+	void huffTreeDeleter(HNode* node);
 
-	Heap<HNode> heap;
+
+	Heap<HNode> minHeap;
+	HNode* huffTree = nullptr;
+	std::map<char, std::string> table;
+
 
 };
 
 
-template <typename T>
-Huffman<T>::Huffman(std::vector<HNode> vec) : heap(vec) {};
+
 
 template <typename T>
-std::vector<std::string> Huffman<T>::compress(const std::vector<std::string>& text) {
+Huffman<T>::Huffman(std::vector<HNode> vec) : minHeap(false, vec) {
+};
 
-	textToHeap(text);
-	
-	if (heap.getSize() > 1) {
-
-		HNode *curr, *parent, *prev(nullptr);
-
-		parent = new HNode('@', 0);
-		parent->right = new HNode(heap.extractMin());
-		parent->left = new HNode(heap.extractMin());
-		parent->freq = parent->right->freq + parent->left->freq;
-
-		while (heap.getSize() > 1) {
-			curr = new HNode(heap.extractMin());
-			parent = new HNode('@', curr->freq + prev->freq);
-			if (curr->freq < prev->freq) {
-				parent->left = prev;
-				parent->right = curr;
-			}
-			else {
-				parent->left = curr;
-				parent->right = prev;
-			}
-			prev = curr;
-		}
+template <typename T>
+Huffman<T>::~Huffman() {
+	if (huffTree != nullptr) {
+		huffTreeDeleter(huffTree);
 	}
+}
 
+
+template <typename T>
+void Huffman<T>::compressText(const std::string& inPath, const std::string& outPath) {
+
+	const auto& inText = fileLoader.loadTxt(inPath);
+	std::cout << textToHeap(inText);
+	huffTree = minHeapToHuffTree();
+	huffTreeToTable();
+
+	std::vector<std::string> outText;
+	std::string tempStr("$$");
+
+	for (auto itr = table.begin(); itr != table.end(); ++itr) {
+		tempStr += '$';
+		tempStr += itr->first;
+		tempStr += '$';
+		tempStr += itr->second;
+	}
+	tempStr += '$$';
+	outText.emplace_back(tempStr);
+
+	for (const auto& elem : inText) {
+		tempStr = "";
+		for (const char _char : elem) {
+			tempStr += table.find(_char)->second;
+		}
+		outText.emplace_back(tempStr);
+	}
 	
-	return std::vector<std::string>();
+	std::cout << fileLoader.saveTxt(outText, outPath);
 
 
 }
 
 template <typename T>
-void Huffman<T>::textToHeap(const std::vector<std::string>& text) {
-	
+void Huffman<T>::huffTreeProbe(HNode* node, std::string str) {
+
+	if (node->left != nullptr) {
+		huffTreeProbe(node->left, str + '0');
+	}
+	if (node->right != nullptr) {
+		huffTreeProbe(node->right, str + '1');
+	}
+	if (node->data != '$') {
+		table.insert(std::make_pair(node->data, str));
+	}
+}
+
+template <typename T>
+void Huffman<T>::huffTreeDeleter(HNode* node) {
+
+	if (node->left != nullptr) {
+		huffTreeDeleter(node->left);
+	}
+	if (node->right != nullptr) {
+		huffTreeDeleter(node->right);
+	}
+	delete node;
+}
+
+
+
+template <typename T>
+void Huffman<T>::huffTreeToTable() {
+	assert(minHeap.getSize() == 0);
+	assert(huffTree != nullptr);
+
+	table.clear();
+	huffTreeProbe(huffTree);
+}
+
+
+
+template <typename T>
+HNode* Huffman<T>::minHeapToHuffTree() {
+
+	assert(minHeap.getSize() >= 0);
+	int parentPos;
+
+	while (minHeap.getSize() > 1) {
+		HNode* left = new HNode(minHeap.extract());
+		HNode* right = new HNode(minHeap.extract());
+		HNode parent('$', left->freq + right->freq);
+		parent->left = left;
+		parent->right = right;
+		minHeap.insert(parent);
+	}
+	return new HNode(minHeap.extract());
+}
+
+
+template <typename T>
+bool Huffman<T>::textToHeap(const std::vector<std::string>& text) {
+
 	assert(text.size() >= 0);
 
 	std::map<char, int> freqMap;
@@ -70,19 +150,19 @@ void Huffman<T>::textToHeap(const std::vector<std::string>& text) {
 		}
 	}
 
-	heap.clearAll();
+	minHeap.clearAll();
 	for (auto it = freqMap.begin(); it != freqMap.end(); ++it) {
 		HNode tempNode(it->first, it->second);
-		heap.insert(tempNode);
+		minHeap.insert(tempNode);
 	}
+	return minHeap.isSorted();
 }
 
 
 template <typename T>
-std::vector<std::string> Huffman<T>::extract(const std::vector<std::string>& ctext) {
+void Huffman<T>::extractText(const std::string& inPath, const std::string& outPath) {
 
 
-	return std::vector<std::string>();
 
 }
 

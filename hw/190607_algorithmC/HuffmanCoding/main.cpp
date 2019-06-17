@@ -10,10 +10,22 @@ int main()
 {
 	using namespace std;
 	{
-		FileLoader fl;
-		auto text1 = fl();
-		Huffman<int> hm;
-		hm.compress(text1);
+		Huffman<HNode> hm;
+		hm.compressText();
+	}
+	{
+		Heap<int> heap(true);
+		std::vector<int> vec1 = {1,2,3,4,5,6,7,10};
+		for (auto elem : vec1) {
+			heap.insert(elem);
+			heap.printAll();
+			cout << heap.isSorted() << endl;
+		}
+		for (size_t i = 0; i < vec1.size(); ++i) {
+			heap.extract();
+			heap.printAll();
+			cout << heap.isSorted() << endl;
+		}
 	}
 	{
 		Heap<int> heap;
@@ -24,7 +36,7 @@ int main()
 			cout << heap.isSorted() << endl;
 		}
 		for (size_t i = 0; i < vec1.size(); ++i) {
-			heap.extractMin();
+			heap.extract();
 			heap.printAll();
 			cout << heap.isSorted() << endl;
 		}

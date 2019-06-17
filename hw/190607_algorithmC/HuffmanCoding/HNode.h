@@ -7,7 +7,8 @@ struct HNode {
 
 	HNode() = default;
 	HNode(char _data, int _freq) : data(_data), freq(_freq) {}
-	HNode(const HNode& hnode) : data(hnode.data), freq(hnode.freq) {}
+	//HNode(const HNode& hnode) : data(hnode.data), freq(hnode.freq) {}
+	
 
 
 	bool operator<(const HNode& rhs) const;
@@ -18,7 +19,7 @@ struct HNode {
 
 	HNode* operator->();
 	
-	char data = ' ';
+	char data = '$';
 	int freq = 0;
 	HNode* left = nullptr;
 	HNode* right = nullptr;
