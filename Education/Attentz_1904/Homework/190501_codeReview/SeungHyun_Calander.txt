@@ -1,0 +1,33 @@
+@startuml
+
+enum DayofWeek {
+	Sunday = 0,
+	Monday,
+	Tuesday,
+	Wednesday,
+	Thursday,
+	Friday,
+	Saturday,
+}
+
+class calander {
+	+void View();		
+	-struct Day
+	-vector<Day> date;	
+	-int month;			
+	-int firstDay;		
+}
+calander o-->Day
+
+class Day <<Struct>> {
+		int dayofweek;
+		int nDay;
+	}
+Day->DayofWeek
+
+note as N1
+/ calander 생성 시 if 문으로 변경 하면 더 빠르고 코드량도 줄어들 것 같음.
+/ initilizer list에 너무 많은 할 일을 위임하는 것 같음.
+end note
+
+@enduml

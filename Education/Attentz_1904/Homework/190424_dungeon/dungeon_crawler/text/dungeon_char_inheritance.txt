@@ -1,0 +1,52 @@
+@startuml
+Charcter <|.. Player
+class Player {
++ bool move()
++ bool dropItem(int itemType,\nint id, int howmany=0)
++ bool useConsumable(int id)
+--
++ int exp
++ Equipment equipment
++ Inventory inventory
+}
+Player "1" o-- "1" Equipment
+Player "1" o-- "1" Inventory
+
+class Equipment {
++Status getTotalStats()
+--
++map[numEquipPartList] <id, <(Gear*),\ndurability>> equipments
+}
+
+class Inventory <<Struct>> {
++map<id, <(Consumable*),\nstock>> consumables
+}
+
+
+Equipment --> EquipmentPartList
+enum EquipmentPartList {
+leftHandItem = 0
+rightHandItem
+helmet
+armor
+boots
+accesory
+}
+
+
+
+Charcter <|.. Monster
+class Monster {
++ int getMonsterCnt()
++ bool isAggressive()
++ int getSafeRadius()
+--
++ bool move()
++ bool dropItem()
+--
+{static} # int monsterCnt
+# bool isAggresive
+# int safeRadius
+# int expReward
+}
+@enduml

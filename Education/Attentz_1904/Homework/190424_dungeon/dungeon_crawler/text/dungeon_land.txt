@@ -1,0 +1,70 @@
+@startuml
+
+class Tile {
++ Pos pos
++ int hp
++ TileInfo* tileInfo
+}
+Tile "1" o--"1" Pos
+Tile "1" o-- "1" TileInfo
+
+class Pos <<struct>> {
+int x
+int y
+}
+
+class TileInfo {
++ int getMaxHp
++ bool[numMask] getTileFeatureMask
+--
+# maxHp
+# bool[numMask] tileFeatureMask
+}
+note "tileMask:\nisFloor(1), transparable(1), visible(2), breakable(1)" as tileMaskNote
+TileInfo...tileMaskNote
+
+TileInfo --> isVisible
+
+enum isVisible {
+visible = 0 (00)
+clocked = 1 (01)
+invisible = 2 (10)
+}
+
+Trap --|> Tile
+abstract class Trap {
++ {abstract} bool activate() = 0
++ int getWarmUpTurn()
++ int getEffectDuration()
++ int getCoolDown()
+--
++ bool isOn = 1
+# int WarmUpTurn = 1
+# int effectDuration = 1
+# int coolDown = 0
+}
+
+
+FreezingTrap --|> Trap
+class FreezingTrap {
+bool activate()
+--
+int freezingTime = 2
+int coolDown = 3
+}
+
+PoisonTrap --|> Trap
+class PoisonTrap {
+bool activate()
+}
+
+SpikeTrap --|> Trap
+class SpikeTrap {
+bool activate()
+--
+int damage
+}
+ 
+
+
+@enduml

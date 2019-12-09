@@ -1,0 +1,5 @@
+폰게임의 경우 아이템 이름이 int 일 경우가 많음. 번역 때문에. 언어 설정대로 읽어어도록.
+stack 과 queue는 iterator 지원하지 않음.
+begin(), end()는 일반화됨. 많은 타입에서 사용 가능.
+c++ algorithm은 iterator 기반임. 성능 약간 희생됨.
+greater<int>() 는 하나의 템플릿 클래스.

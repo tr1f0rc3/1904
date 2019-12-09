@@ -1,0 +1,212 @@
+int a(2); int b(3);	float c = (a + b)/a; // c=2
+
+>> << // shift 연산. float는 지원 안함. * 나 / 보다 계산이 더 빠름.
+
+!10 // 0, 1외 다른 숫자는 사용 권하지 않음. 가독성 떨어짐.
+
+true ? TTT(true) : TTT(false); // 안쓰는 값을 삼항연산자 false로 접근 불가하게 작성하기도 함. 가끔식.
+
+for each // 사용x. msvc 전용임.
+
+statement문과 expression식은 다름. if (문) {body} // body 가 한줄일 때 중괄호 생략 가능. 하지만 가독성 떨어짐. 
+if (true); // NULL 문
+condition statement 되도록 줄여야 함. 속도가 느림.
+if만 쓰는 대신 else if 와 else를 같이 쓰면 속도가 아주 조금 빨라짐.
+if문은 사람들 잘 안보는 곳에 배치.
+
+switch는 case마다 값이 같은지 확인.
+break나 return은 필수. 불필요한 차후 검사 수행함.
+case내 지역변수는 { } 로 선언 및 정의
+enum과 같이 사용시  자동 작성. tab으로 switch on 생성. for도 가능
+
+문자열 비교는 느림.
+
+do while 시 ";" 붙여야 함. 최소 한 번은 실행.
+
+continue와 break는 반복문 탈출시에만 씀.
+continue // condition으로 바로 skip
+
+goto는 복잡한 반복문에만 사용. 가독성 떨어짐. 되도록 내려보내야 가독성이 좋음.
+
+
+/// 함수 ///
+
+
+전역함수 c++에 존재. C#에 없음. 하지만 OOP에 반함. 사용 금지.
+함수는 duplication 방지하기 위함.
+
+enum도 함수로 출력 가능.
+
+!!! header에는 using namespace std 사용 금지. cpp에는 scope안에서 사용.
+
+function 의 interface (signature) 는 return, name, argument. 개념적 요소.
+
+function(void) // function()과 동일.
+
+Add(5,5) // return 무시해도 괜찮음.
+
+c++는 argument name 없어도 됨.
+
+top-down 은 절차지향 언어에서 기반.
+
+c++는 컴파일러가 딱 한번 읽음. 함수 사용 시 미리 선언해야 함.
+선언만 할 경우 컴파일러 에러가 나지 않음. 컴파일러는 이름을 확인.
+대신 링커 에러가 남. LNK.... "확인할 수 없는 외부 참조입니다."
+정의는 딱 한번만
+runtime error 보다 linker error가 낫고 compile error가 더 낫다.
+
+header에 정의가 없으면 compile 속도 상승.
+
+overloading 시 기존 함수에서 호출 후 추가 구현하는게 좋음. 기존 함수가 어떻게 차후에 바뀔지 모름. 코드 중복 없앰.
+
+#inlcude 시 library 호출 <> "" 둘다 가능
+include는 header 파일만.
+#pragma로 lib나 pack 호출 가능.
+#pragma once는 한번만 읽어라. 보통 header 파일에 둠. cpp에 둘 필요가 없음.
+#define 문자 단위로 치환하기 때문에 괄호를 잘 사용해야함. 복붙 정도? soen.kr에 예씨 있음.
+
+개발편의성과 OOP성이 충돌하는 경우가 많음.
+macro 쓰면 진짜 편하다. 대문자로 쓰는게관용 \를 뒤에 붙이면 컴파일러가 줄을 계속 이어줌. \뒤에 빈칸있으면 안됨.
+return 시 사용. namespace 선언도 가능.
+#define NAME_SPACE _P namespace P {
+#define END_NAME_SPACE }
+가독성 나빠짐. 브레이크 안되어서 테스트하기 어려움.
+잘 보이는 곳에 놔야함.
+
+header 가져올 시 관계가 생김. 종속성 생김. 단방향이 아닐 수도 있음. 순환 참조 시 에러남.
+header 여러개 가져오면 #define 이 여러개 얽혀서 스파게티 코드가 될 수도 있음.
+
+#ifdef 시 #endif로 반드시 마무리해야함.
+
+__TIME__ __LINE__ __FILE__ __FUNCTION__ log 확인 시 사용
+
+debug 시 검사가 엄격함. 예외 처리 등이 느려짐.
+release 시 컴파일링이 빠름.
+
+32bit가 4GB 가상메모리. pointer size 4byte
+64bit pointer size 8byte 범위가 거의 무한.
+
+프로젝트 속성 명령줄 // 이 option들을 포함해서 compile 해주세요.
+
+#pragma once 대신 이걸로 대체 가능. 옛방식.
+#ifndef _TEST_FUNCTION_H_
+#define _TEST_FUNCTION_H_
+void Function01();
+void Function02();
+#endif
+
+pch는 pre compile header 공용 컴파일 헤더. 어느 파일이나 적용.
+모든 파일에 기본적으로 pch.h 다 들어가야함
+프로젝트 내 파일은 다 커버함. #include <iostream> 같은 거 넣으면 편함.
+define header 만들어서 utiliy functino util macro 등을 포함한 후, pch에 include 
+header가 header를 물면 느려지기 때문에 pch를 사용함.
+
+
+
+
+
+project 간 종속성을 가질 수 도 있음. library 이용할 떄 그렇게 함.
+
+vcxproj xml 포맷임. header cpp 등 정보 담겨있음.
+
+call stack memory 는 작음 MB단위.
+
+
+구구단 및 enum EXMAPLE
+enum class eDragonType {
+	fire,
+	ice,
+};
+
+int main()
+{
+
+
+	for (int j = 1; j != 10; ++j) {
+		for (int i = 1; i != 10; ++i) {
+			cout << i * j << ' ';
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+
+	int i(1), j(1);
+	do {
+		do {
+			cout << i * j << ' ';
+			++i;
+		} while (i != 10);
+		i = 1;
+		++j;
+		cout << endl;
+	} while (j != 10);
+
+	cout << endl;
+
+	for (int j = 10; j < 21; j += 2) {
+		for (int i = 1; i < 21; ++i) {
+			cout << i * j << ' ';
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+
+	i = 1, j = 11;
+	do {
+		do {
+			cout << i * j << ' ';
+			++i;
+		} while (i < 21);
+		i = 1;
+		j += 2;
+		cout << endl;
+	} while (j < 21);
+
+	eDragonType firedragon = eDragonType::fire;
+	switch (firedragon)
+	{
+	case eDragonType::fire:
+		cout << endl;
+	case eDragonType::ice:
+		break;
+	default:
+		break;
+	}
+
+}
+
+ifdef 와 DEBUG & RELEASE로 함수변환 
+
+using namespace std;
+void Log(const char* pS) {
+	cout << pS << endl;
+}
+#ifdef _RELEASE
+#define LOG(x) {Log(x);}
+#else
+#define LOG(x)
+#endif
+
+int main()
+{
+	LOG("LOGLOG");
+}
+
+
+1. 요점정리 (soen.kr) 6-3 뺴고
+2. 예제타이핑 ( soen.kr)
+3. 코드업 문제 20문제
+4. 코딩
+소수출력 ( 100까지의 )
+다이아 출력 최소높이는 9
+
+       *
+      ***
+     *****
+      ***
+       *
+
+피보나치 수열 for문버전, 재귀버전
+10개까지.

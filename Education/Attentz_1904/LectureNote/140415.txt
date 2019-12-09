@@ -1,0 +1,18 @@
+static은 딱 한번만 실행함. 함수 안에 static 변수 선언하면 한수안에서만 볼 수 있음.
+
+singleton 은 antipattern. 전역적으로 접근 가능.
+멀티쓰레드에 취약. singlton 자료 100. processor1이 100+1 return; 동시에 processor2가 100+1 return;
+lock 걸어야 함. 느려짐.
+예제에서는 GetInstance 시 nullptr이면 생성
+
+tcp/ip 책 . 윤성우 책 추천.
+
+클래스를 헤더에 선언해야 얼마나 메모리를 잡을 지 컴파일러가 알 수 있음.
+이 헤더가 cpp파일에 복붙됨.
+클래스 내에서 다른 클래스 쓰려면 클래스 내에서 선언해야. 밖에 쓰면 다른클래스도 참조하는 수가 있음.
+
+회사에서 쓰면 typedef 나 using 먼저 자주 씀.
+
+ui, 네트워크 콜백에 람다가 좋음.
+-> 보통은 안써도 됨. 리턴 값 명시.
+auto p = [=]() {cout << aa << endl;}; // p 선언

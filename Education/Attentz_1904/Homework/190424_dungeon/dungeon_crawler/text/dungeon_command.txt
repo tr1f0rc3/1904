@@ -1,0 +1,110 @@
+@startuml
+
+abstract class Command {
++ Command(Application* app,\nEditor* editor)
+--
++{abstract} saveBackUp() = 0
++ undo()
++{abstract} excute() = 0
+--
+# Application* app
+# Editor* editor
+# CommandInfo* commandInfo
+}
+Command "1" o-- "1" CommandInfo
+Command -> Application
+Command -> Editor
+note "each CmdInfo created in heap" as CommandNote
+Command ... CommandNote
+
+Command <|.. MoveCommand
+class MoveCommand {
+MoveCommand(int direction)
+}
+
+Command <|.. AttackCommand
+class AttackCommand {
+AttackCommand(Chracacter* _chracter)
+}
+
+Command <|.. SkillCommand
+class SkillCommand {
+SkillCommand(int skillId)
+}
+
+Command <|.. DropCommand
+class DropCommand {
+DropCommand(int type,\nint id, int howmany)
+}
+
+Command <|.. UseCommand
+class UseCommand {
+UseCommand(int id, int howmany)
+}
+
+Command <|.. UndoCommand
+class UndoCommand {
+}
+
+abstract class CommandInfo <<Struct>> {
+}
+
+AttackCommandInfo -|> CommandInfo
+class AttackCommandInfo {
++ Chracacter* chracter
+}
+
+MoveCommandInfo -|> CommandInfo
+class MoveCommandInfo {
++ int dir
+}
+
+SkillCommandInfo -|> CommandInfo
+class SkillCommandInfo {
++ int id
+}
+
+ItemCommandInfo -|> CommandInfo
+class ItemCommandInfo {
++ int type
++ int id
++ int howMany
+}
+
+
+class CommandHistory {
++bool push(Command _c)
++Command pop()
+--
+# stock<Command> history[maxStock]
+}
+CommandHistory "1" o--> "n" Command
+
+class Editor {
++ bool move()
++ bool attack()
++ bool dropItem()
++ bool useItem()
++ bool skill()
+--
+}
+
+
+
+class Application
+{
++ int getInput()
++ ...Command(...)
++ bool excuteCommand(command)
++ bool undo()
+--
++ (Editor*)[] editors
++ Editor* activeEditor
++ CommandHistory* commandHistory
+}
+Application "1" o--> "n" Editor
+Application "1" o--> "1" CommandHistory
+
+
+ 
+@enduml

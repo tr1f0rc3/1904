@@ -1,0 +1,22 @@
+new char를 함수에 넣을 때는 더블 포인터 사용해야함.
+함수 내에서 new선언 하지 말 것.
+
+class 보다 함수에서 예외처리르 더 엄격해야 함. class는 private member를 사용하기 때문에 상대적으로 안전함.
+RVO. return 시 복합 계산은 최적화함. 클래스 여러개 생성하지 않음.
+vector 사용 시에는 삭제 많이 하면 성능 떨어짐.
+emplace_back 이동이 가능하면 이동 해줌.
+성능 이 중요하면 stl vector 보다 더 좋은거 써야함. ea stl 좋음
+resize reserve 호출 시 타입별 기본 생성자 전제함. 빈 요소 넣음.
+
+삽입삭제 시에는 list 권장. garbage 가 많긴함. 노드기반이고 노드를 재활용하지 않아서 꺼려지기도 함.
+
+map 은 tree 구조. red black tree. 찾기가 빠름. 서칭 특화.
+unordered는 hash table 구조. 찾기가 더 빠름. 500 개 이상 등 자료가 많아지면 이걸 씀.
+map은 없는 요소에 덮어쓰기가 됨. pair로 넣길 권함.
+make_pair 보다 { } 가 보기 편함.
+
+c# dictionary = unordered map
+
+stack은 iterator 없음
+queue는 c++ 에서 작은 자료구조. message queue
+

@@ -1,0 +1,18 @@
+@startuml
+class Phone
+{
+	+void Info() const
+	+void SetPower()	{ m_nPower = !m_nPower;	}
+	-bool m_nPower = false;
+	-const char * m_nColor = nullptr;
+	-const char * m_pMaker = nullptr;
+	-const char * m_pModuler = nullptr;
+	
+}
+note as N1
+/ 동적할당 하지 않았는데 delete하면 안됨.
+end note
+
+
+
+@enduml

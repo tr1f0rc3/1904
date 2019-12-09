@@ -1,0 +1,62 @@
+reference type 사용 시 local variable의 주소를 return 하면 안됨.
+heap (동적 할당 new)이 아니라 stack(main 내)에 있는 memory를 return 하는 것임.
+컴터 터짐. main function 안만 관리 대상임.
+프로젝트 상위 폴더에 eye파일 생성됨. 시작프로젝트로 된 것만 빌드 됨.
+
+가변적인 거 사용할 땐 동적할당 사용함. 상황마다 다른 형태 메모리를 사용해야 함. vector랑 비슷하나?
+통상 함수 인자로 array를 넘겨주지 않음. pointer로 넘겨줌. pointer만 넘겨줘도 size도 같이 넘겨줘야 함.
+
+const value는 lvalue가 아님.
+중간 값은 rvalue. Add(Add(-1,5),5)...
+
+const * : 주소 변경 불가
+* const : 값 변경 불가
+
+문자열은 const로만 받을 수 있음.
+왜 memcpy대신 memcpy_s 써야 하는가? _s는 버퍼 사이즈를 미리 확인함. 메모리 넘어가면 에러남.
+
+
+memset(buffer, 0, sizeof(buffer[0])*buffersize);
+  // 메모리 지워줌. 자주 사용. char도 무관하지만 buffer[0]이 더 좋음. 이식성있음.
+  // {0, } 해도 뒤에 0 으로 채워주긴 함.
+  
+  ctrl+shift+spacebar 함수의 signature가 나옴 
+  
+  
+  int nlength = sprintf_s(buffer, sizeof(char)*buffersize, "%02d, $%s%c, %.2f --------", -1, " hellow worl", 'd', 3.5f);
+  
+  
+  객체지향이 유지보수에 좋음. 클래스가 그 핵심. 기능 구현은 쉬움.
+  
+  캡슐화와 정보은닉은 보통 묶어서 말함
+  
+  관용적으로 struct는 data만 가지고 있는것만 사용.
+  
+'\0' = 0
+  
+테스트는 default, null, nullptr에 대한 체크를 확실히 해야함.
+
+ -12-3 예제 다 쳐보기
+ 공용체 참조.
+ -13장 패스.
+ 
+ 헤더에는 include 넣짐라기 pch에 넣기.
+ 
+ 생성자는 여러개. 소멸자는 하나.
+ container class는 default consturctor가 필요할 떄 가많음.
+ 인자를 받는 생성자를 만들면 default constructor 만들 수 없음.
+ 
+ 
+ class내 멤버변수는 컴파일러가 위에서 한번만 훑듯이 하지 않음.
+ 
+ const int는 class 만들시에만 생성. 그래서 const는 runtime에 check함.
+ 레퍼런스는 member initialization 하는 수 밖에없음.
+ 
+ const 함수로 먼저 만들고 변수를 바꿔야하면 const를 지우자.
+ 
+ memberinitilizer list 사용하는게 그냥 intialization 하는 것 보다 더 권장되고 빠름.
+ 불필요하게 둘다 써서 중복되면 안됨.
+ 
+ getter setter 둘다 하면 변수를 public에 두는게 나을 수 있다. 스타일.
+ 
+ OOP 코드가 시스템화 될수록 예외처리가 늘어남. 적당히 시스템화하고 끊어야함.
